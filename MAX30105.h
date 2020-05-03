@@ -18,7 +18,7 @@
 #define I2C_SPEED_STANDARD        100000
 #define I2C_SPEED_FAST            400000
 
-#define byte uint8_t
+typedef uint8_t byte;
 
 #define I2C_BUFFER_LENGTH 32
 
