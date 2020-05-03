@@ -803,7 +803,7 @@ namespace max30105{
 		//read the first 100 samples, and determine the signal range
 		for (byte i = 0 ; i < 100 ; i++)
 		{
-			//while (sg34->available() == false) //do we have new data?
+			while (sg34->available() == false) //do we have new data?
 				sg34->check(); //Check the sensor for new data
 
 			sg34->redBuffer[i] = sg34->getRed();
