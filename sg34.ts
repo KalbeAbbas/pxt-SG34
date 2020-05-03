@@ -1,8 +1,8 @@
 namespace sg34{
 	//% shim=max30105::setup_sg34
-	function setup(): boolean
+	function setup(): number
 	{
-		return true
+		return 1
 	}
 	
 	//%block="SG34 get Red"

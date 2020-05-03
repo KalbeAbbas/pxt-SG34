@@ -410,9 +410,11 @@ uint8_t MAX30105::getRevisionID() {
 // ADC Range = 16384 (62.5pA per LSB)
 // Sample rate = 50
 //Use the default setup if you are just getting started with the MAX30105 sensor
-void MAX30105::setup(byte powerLevel, byte sampleAverage, byte ledMode, int sampleRate, int pulseWidth, int adcRange) {
+uint8_t MAX30105::setup(byte powerLevel, byte sampleAverage, byte ledMode, int sampleRate, int pulseWidth, int adcRange) {
 
   _i2caddr = MAX30105_ADDRESS;
+  
+  uint8_t ID = readPartID();
 	
   softReset(); //Reset all configuration, threshold, and data registers to POR values
 
@@ -492,6 +494,8 @@ void MAX30105::setup(byte powerLevel, byte sampleAverage, byte ledMode, int samp
   //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
   clearFIFO(); //Reset the FIFO before we begin checking the sensor
+  
+  return ID;
 }
 
 //
@@ -752,10 +756,9 @@ namespace max30105{
 	MAX30105 *sg34 =  new MAX30105();
 	
 	//%
-	bool setup_sg34()
+	uint8_t setup_sg34()
 	{
-		sg34->setup(0x1F, 4, 3, 400, 411, 4096);
-		return true;
+		return sg34->setup(0x1F, 4, 3, 400, 411, 4096);
 	}
 	
 	//%
