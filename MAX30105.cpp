@@ -411,6 +411,9 @@ uint8_t MAX30105::getRevisionID() {
 // Sample rate = 50
 //Use the default setup if you are just getting started with the MAX30105 sensor
 void MAX30105::setup(byte powerLevel, byte sampleAverage, byte ledMode, int sampleRate, int pulseWidth, int adcRange) {
+
+  _i2caddr = MAX30105_ADDRESS;
+	
   softReset(); //Reset all configuration, threshold, and data registers to POR values
 
   //FIFO Configuration
