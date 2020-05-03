@@ -751,7 +751,7 @@ namespace max30105{
 	//%
 	void setup_sg34()
 	{
-		sg34->setup();
+		sg34->setup(0x1F, 4, 3, 400, 411, 4096);
 	}
 	
 	//%
