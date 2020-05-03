@@ -1,6 +1,7 @@
 namespace sg34{
 	//% shim=max30105::setup_sg34
-	function setup(): number
+	//% block="SG34 setup"
+	export function setup(): number
 	{
 		return 1
 	}
@@ -33,5 +34,5 @@ namespace sg34{
 		return 1
 	}
 	
-	setup()
+	//setup()
 }
