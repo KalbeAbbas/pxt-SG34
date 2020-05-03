@@ -801,7 +801,7 @@ namespace max30105{
 	{
 
 		//read the first 100 samples, and determine the signal range
-		for (byte i = 0 ; i < 100 ; i++)
+		/*for (byte i = 0 ; i < 100 ; i++)
 		{
 			//while (sg34->available() == false) //do we have new data?
 				//sg34->check(); //Check the sensor for new data
@@ -812,7 +812,7 @@ namespace max30105{
 		
 		}
 		
-		maxim_heart_rate_and_oxygen_saturation(sg34->irBuffer, 100, sg34->redBuffer, &(sg34->spo2), &(sg34->validSPO2), &(sg34->heartRate), &(sg34->validHeartRate));
+		maxim_heart_rate_and_oxygen_saturation(sg34->irBuffer, 100, sg34->redBuffer, &(sg34->spo2), &(sg34->validSPO2), &(sg34->heartRate), &(sg34->validHeartRate));*/
 		
 		return sg34->setup(60, 4, 2, 100, 411, 4096);
 	}
