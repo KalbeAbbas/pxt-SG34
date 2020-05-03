@@ -732,7 +732,7 @@ void MAX30105::delay(int ms)
 char MAX30105::readRegister8(uint8_t address, uint8_t reg) {
 
   uint8_t command[1];
-  command[1] = reg;
+  command[0] = reg;
   
   char value[1];
   
