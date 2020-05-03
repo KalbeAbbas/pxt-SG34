@@ -1,9 +1,13 @@
 namespace sg34{
 	//% shim=max30105::setup_sg34
-	//% block="SG34 setup"
-	export function setup(): number
+	function setup(): number
 	{
 		return 1
+	}
+	
+	//% shim=max30105::startParallel
+	function startParallel(u: ()=> void):number{
+		return 1;
 	}
 	
 	//%block="SG34 get Red"
@@ -22,7 +26,7 @@ namespace sg34{
 	
 	//%block="SG34 get IR"
 	//%shim=max30105::getIRSG34
-	export function getBlue():number
+	export function getIR():number
 	{
 		return 1
 	}
@@ -34,5 +38,11 @@ namespace sg34{
 		return 1
 	}
 	
-	//setup()
+	//%block="SG34 get SPO2"
+	//%shim=max30105::getSPO2SG34
+	export function getSPO2():number{
+		return 1
+	}
+	
+	setup()
 }

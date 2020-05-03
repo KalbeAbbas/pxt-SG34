@@ -59,9 +59,11 @@
 * ownership rights.
 *******************************************************************************
 */
-/*#ifndef SPO2_ALGORITHM_H_
+#ifndef SPO2_ALGORITHM_H_
 #define SPO2_ALGORITHM_H_
 
+#include "pxt.h"
+#include "inttypes.h"
 
 #define FreqS 25    //sampling frequency
 #define BUFFER_SIZE (FreqS * 4) 
@@ -90,5 +92,4 @@ void maxim_remove_close_peaks(int32_t *pn_locs, int32_t *pn_npks, int32_t *pn_x,
 void maxim_sort_ascend(int32_t  *pn_x, int32_t n_size);
 void maxim_sort_indices_descend(int32_t  *pn_x, int32_t *pn_indx, int32_t n_size);
 
-#endif */ /* ALGORITHM_H_ */
-
+#endif /* ALGORITHM_H_ */

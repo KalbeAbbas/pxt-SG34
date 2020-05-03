@@ -59,8 +59,8 @@
 
 #include "spo2_algorithm.h"
 
-//void maxim_heart_rate_and_oxygen_saturation(uint32_t *pun_ir_buffer, int32_t n_ir_buffer_length, uint32_t *pun_red_buffer, int32_t *pn_spo2, int8_t *pch_spo2_valid, 
-//                int32_t *pn_heart_rate, int8_t *pch_hr_valid)
+void maxim_heart_rate_and_oxygen_saturation(uint32_t *pun_ir_buffer, int32_t n_ir_buffer_length, uint32_t *pun_red_buffer, int32_t *pn_spo2, int8_t *pch_spo2_valid, 
+                int32_t *pn_heart_rate, int8_t *pch_hr_valid)
 /**
 * \brief        Calculate the heart rate and SpO2 level
 * \par          Details
@@ -78,7 +78,7 @@
 *
 * \retval       None
 */
-/*{
+{
   uint32_t un_ir_mean;
   int32_t k, n_i_ratio_count;
   int32_t i, n_exact_ir_valley_locs_count, n_middle_idx;
@@ -196,10 +196,10 @@
     *pn_spo2 =  -999 ; // do not use SPO2 since signal an_ratio is out of range
     *pch_spo2_valid  = 0; 
   }
-}*/
+}
 
 
-//void maxim_find_peaks( int32_t *pn_locs, int32_t *n_npks,  int32_t  *pn_x, int32_t n_size, int32_t n_min_height, int32_t n_min_distance, int32_t n_max_num )
+void maxim_find_peaks( int32_t *pn_locs, int32_t *n_npks,  int32_t  *pn_x, int32_t n_size, int32_t n_min_height, int32_t n_min_distance, int32_t n_max_num )
 /**
 * \brief        Find peaks
 * \par          Details
@@ -207,13 +207,13 @@
 *
 * \retval       None
 */
-/*{
+{
   maxim_peaks_above_min_height( pn_locs, n_npks, pn_x, n_size, n_min_height );
   maxim_remove_close_peaks( pn_locs, n_npks, pn_x, n_min_distance );
-  *n_npks = min( *n_npks, n_max_num );
-}*/
+  *n_npks = min( (int)*n_npks, (int)n_max_num );
+}
 
-//void maxim_peaks_above_min_height( int32_t *pn_locs, int32_t *n_npks,  int32_t  *pn_x, int32_t n_size, int32_t n_min_height )
+void maxim_peaks_above_min_height( int32_t *pn_locs, int32_t *n_npks,  int32_t  *pn_x, int32_t n_size, int32_t n_min_height )
 /**
 * \brief        Find peaks above n_min_height
 * \par          Details
@@ -221,7 +221,7 @@
 *
 * \retval       None
 */
-/*{
+{
   int32_t i = 1, n_width;
   *n_npks = 0;
   
@@ -241,9 +241,9 @@
     else
       i++;
   }
-}*/
+}
 
-//void maxim_remove_close_peaks(int32_t *pn_locs, int32_t *pn_npks, int32_t *pn_x, int32_t n_min_distance)
+void maxim_remove_close_peaks(int32_t *pn_locs, int32_t *pn_npks, int32_t *pn_x, int32_t n_min_distance)
 /**
 * \brief        Remove peaks
 * \par          Details
@@ -251,12 +251,12 @@
 *
 * \retval       None
 */
-/*{
+{
     
-  int32_t i, j, n_old_npks, n_dist;*/
+  int32_t i, j, n_old_npks, n_dist;
     
   /* Order peaks from large to small */
-  /*maxim_sort_indices_descend( pn_x, pn_locs, *pn_npks );
+  maxim_sort_indices_descend( pn_x, pn_locs, *pn_npks );
 
   for ( i = -1; i < *pn_npks; i++ ){
     n_old_npks = *pn_npks;
@@ -270,9 +270,9 @@
 
   // Resort indices int32_to ascending order
   maxim_sort_ascend( pn_locs, *pn_npks );
-}*/
+}
 
-//void maxim_sort_ascend(int32_t  *pn_x, int32_t n_size) 
+void maxim_sort_ascend(int32_t  *pn_x, int32_t n_size) 
 /**
 * \brief        Sort array
 * \par          Details
@@ -280,7 +280,7 @@
 *
 * \retval       None
 */
-/*{
+{
   int32_t i, j, n_temp;
   for (i = 1; i < n_size; i++) {
     n_temp = pn_x[i];
@@ -288,9 +288,9 @@
         pn_x[j] = pn_x[j-1];
     pn_x[j] = n_temp;
   }
-}*/
+}
 
-//void maxim_sort_indices_descend(  int32_t  *pn_x, int32_t *pn_indx, int32_t n_size)
+void maxim_sort_indices_descend(  int32_t  *pn_x, int32_t *pn_indx, int32_t n_size)
 /**
 * \brief        Sort indices
 * \par          Details
@@ -298,7 +298,7 @@
 *
 * \retval       None
 */ 
-/*{
+{
   int32_t i, j, n_temp;
   for (i = 1; i < n_size; i++) {
     n_temp = pn_indx[i];
@@ -306,8 +306,7 @@
       pn_indx[j] = pn_indx[j-1];
     pn_indx[j] = n_temp;
   }
-}*/
-
+}
 
 
 

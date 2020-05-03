@@ -541,6 +541,47 @@ uint32_t MAX30105::getGreen(void)
     return(0); //Sensor failed to find new data
 }
 
+// Return SPO2 value
+int32_t MAX30105::getSPO2(void)
+{
+	return spo2;
+}
+
+void MAX30105::poll(void)
+	{
+		
+	while(1)
+	{
+		
+	uint32_t irBuffer[100]; //infrared LED sensor data
+	uint32_t redBuffer[100];  //red LED sensor data
+		
+    //dumping the first 25 sets of samples in the memory and shift the last 75 sets of samples to the top
+    for (byte i = 25; i < 100; i++)
+    {
+      redBuffer[i - 25] = redBuffer[i];
+      irBuffer[i - 25] = irBuffer[i];
+    }
+
+    //take 25 sets of samples before calculating the heart rate.
+    for (byte i = 75; i < 100; i++)
+    {
+      while (available() == false) //do we have new data?
+        check(); //Check the sensor for new data
+
+      redBuffer[i] = getRed();
+      irBuffer[i] = getIR();
+      nextSample(); //We're finished with this sample so move to next sample
+
+    }
+
+    //After gathering 25 new samples recalculate HR and SP02
+    maxim_heart_rate_and_oxygen_saturation(irBuffer, 100, redBuffer, &(spo2), &(validSPO2), &(heartRate), &(validHeartRate));
+	
+	}
+
+	}
+
 //Report the next Red value in the FIFO
 uint32_t MAX30105::getFIFORed(void)
 {
@@ -758,8 +799,24 @@ namespace max30105{
 	//%
 	uint8_t setup_sg34()
 	{
-		return sg34->setup(0x1F, 4, 3, 400, 411, 4096);
+
+		//read the first 100 samples, and determine the signal range
+		for (byte i = 0 ; i < 100 ; i++)
+		{
+			while (sg34->available() == false) //do we have new data?
+				sg34->check(); //Check the sensor for new data
+
+			sg34->redBuffer[i] = sg34->getRed();
+			sg34->irBuffer[i] = sg34->getIR();
+			sg34->nextSample(); //We're finished with this sample so move to next sample
+		
+		}
+		
+		maxim_heart_rate_and_oxygen_saturation(sg34->irBuffer, 100, sg34->redBuffer, &(sg34->spo2), &(sg34->validSPO2), &(sg34->heartRate), &(sg34->validHeartRate));
+		
+		return sg34->setup(60, 4, 2, 100, 411, 4096);
 	}
+		
 	
 	//%
 	uint32_t getRedSG34()
@@ -783,6 +840,43 @@ namespace max30105{
 	float getTempSG34()
 	{
 		return(sg34->readTemperature());
+	}
+	
+	//%
+	int32_t getSPO2SG34()
+	{
+		
+		//dumping the first 25 sets of samples in the memory and shift the last 75 sets of samples to the top
+		for (byte i = 25; i < 100; i++)
+		{
+			sg34->redBuffer[i - 25] = sg34->redBuffer[i];
+			sg34->irBuffer[i - 25] = sg34->irBuffer[i];
+		}
+
+		//take 25 sets of samples before calculating the heart rate.
+		for (byte i = 75; i < 100; i++)
+		{
+			while (sg34->available() == false) //do we have new data?
+				sg34->check(); //Check the sensor for new data
+
+			sg34->redBuffer[i] = sg34->getRed();
+			sg34->irBuffer[i] = sg34->getIR();
+			sg34->nextSample(); //We're finished with this sample so move to next sample
+		}
+		
+		    //After gathering 25 new samples recalculate HR and SP02
+    maxim_heart_rate_and_oxygen_saturation(sg34->irBuffer, 100, sg34->redBuffer, &(sg34->spo2), &(sg34->validSPO2), &(sg34->heartRate), &(sg34->validHeartRate));
+		
+	return(sg34->getSPO2());
+
+    }
+
+	
+	//%
+	int startParallel(Action a)
+	{
+		runInParallel(a);
+		return 1;
 	}
 	
 }
