@@ -749,9 +749,10 @@ namespace max30105{
 	MAX30105 *sg34 =  new MAX30105();
 	
 	//%
-	void setup_sg34()
+	bool setup_sg34()
 	{
 		sg34->setup(0x1F, 4, 3, 400, 411, 4096);
+		return true;
 	}
 	
 	//%
