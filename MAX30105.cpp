@@ -893,7 +893,7 @@ namespace max30105{
 		}
 
 		
-		return sg34->beatsPerMinute;
+		return irValue;
 	}
 	
 	//%
