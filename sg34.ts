@@ -18,12 +18,6 @@ namespace sg34{
 		return 1
 	}
 	
-	//%block="SG34 get Green"
-	//%shim=max30105::getGreenSG34
-	export function getGreen():number
-	{
-		return 1
-	}
 	
 	//%block="SG34 get IR"
 	//%shim=max30105::getIRSG34
