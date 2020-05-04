@@ -46,7 +46,7 @@ namespace sg34{
 	
 	//%block="SG34 get heart rate"
 	//%shim=max30105::getHRSG34
-	export function getSPO2():number{
+	export function getHR():number{
 		return 1
 	}
 	

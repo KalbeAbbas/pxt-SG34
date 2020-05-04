@@ -10,15 +10,15 @@
     "files": [
         "README.md",
         "main.blocks",
-		"shims.d.ts",
-		"enums.d.ts",
+        "shims.d.ts",
+        "enums.d.ts",
         "sg34.ts",
-		"heartRate.h",
-		"heartRate.cpp",
-		"spo2_algorithm.h",
-		"spo2_algorithm.cpp",
-		"MAX30105.h",
-		"MAX30105.cpp"
+        "heartRate.h",
+        "heartRate.cpp",
+        "spo2_algorithm.h",
+        "spo2_algorithm.cpp",
+        "MAX30105.h",
+        "MAX30105.cpp"
     ],
     "testFiles": [
         "test.ts"
