@@ -815,7 +815,7 @@ namespace max30105{
 		
 		maxim_heart_rate_and_oxygen_saturation(sg34->irBuffer, 100, sg34->redBuffer, &(sg34->spo2), &(sg34->validSPO2), &(sg34->heartRate), &(sg34->validHeartRate));*/
 		
-		return sg34->setup(60, 4, 2, 100, 411, 4096);
+		return sg34->setup(60, 4, 2, 400, 411, 4096);
 	}
 		
 	
