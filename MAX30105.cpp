@@ -905,7 +905,18 @@ namespace max30105{
 	return(sg34->getHR());
 
     }
-
+	
+	//%
+	int8_t getSPO2ValidSG34()
+	{
+		return (sg34->validSPO2);
+	}
+	
+	//%
+	int8_t getHRValidSG34()
+	{
+		return (sg34->validHeartRate);
+	}
 	
 	//%
 	int startParallel(Action a)
