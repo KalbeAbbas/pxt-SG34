@@ -870,6 +870,35 @@ namespace max30105{
 	return(sg34->getSPO2());
 
     }
+	
+	//%
+	int32_t getHRSG34()
+	{
+		
+		//dumping the first 25 sets of samples in the memory and shift the last 75 sets of samples to the top
+		for (byte i = 25; i < 100; i++)
+		{
+			sg34->redBuffer[i - 25] = sg34->redBuffer[i];
+			sg34->irBuffer[i - 25] = sg34->irBuffer[i];
+		}
+
+		//take 25 sets of samples before calculating the heart rate.
+		for (byte i = 75; i < 100; i++)
+		{
+			while (sg34->available() == false) //do we have new data?
+				sg34->check(); //Check the sensor for new data
+
+			sg34->redBuffer[i] = sg34->getRed();
+			sg34->irBuffer[i] = sg34->getIR();
+			sg34->nextSample(); //We're finished with this sample so move to next sample
+		}
+		
+		    //After gathering 25 new samples recalculate HR and SP02
+    maxim_heart_rate_and_oxygen_saturation(sg34->irBuffer, 100, sg34->redBuffer, &(sg34->spo2), &(sg34->validSPO2), &(sg34->heartRate), &(sg34->validHeartRate));
+		
+	return(sg34->getSPO2());
+
+    }
 
 	
 	//%
