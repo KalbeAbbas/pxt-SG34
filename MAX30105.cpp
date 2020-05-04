@@ -879,24 +879,19 @@ namespace max30105{
 
 		if (checkForBeat(irValue) == true)
 		{
-			//We sensed a beat!
+			/*//We sensed a beat!
 			long delta = system_timer_current_time() - sg34->lastBeat;
 			sg34->lastBeat = system_timer_current_time();
 
-			sg34->beatsPerMinute = 60 / (delta / 1000.0);
-
-			if (sg34->beatsPerMinute < 255 && sg34->beatsPerMinute > 20)
-			{
-				sg34->rates[sg34->rateSpot++] = (byte)sg34->beatsPerMinute; //Store this reading in the array
-				sg34->rateSpot %= 4; //Wrap variable
-
-				//Take average of readings
-				sg34->beatAvg = 0;
-				for (byte x = 0 ; x < 4 ; x++)
-					sg34->beatAvg += sg34->rates[x];
-				sg34->beatAvg /= 4;
-			}
+			sg34->beatsPerMinute = 60 / (delta / 1000.0);*/
+			
+			sg34->beatsPerMinute = 1.0;
+			
+			
+		}else{
+			sg34->beatsPerMinute = 0.0;
 		}
+
 		
 		return sg34->beatsPerMinute;
 	}
