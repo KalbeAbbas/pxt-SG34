@@ -13,6 +13,7 @@
 #include "inttypes.h"
 
 #include "spo2_algorithm.h"
+#include "heartRate.h"
 
 #define MAX30105_ADDRESS          0x57 //7-bit I2C Address
 //Note that MAX30102 has the same I2C address and Part ID
@@ -33,10 +34,16 @@ class MAX30105 {
   uint32_t getIR(void); //Returns immediate IR value
   uint32_t getGreen(void); //Returns immediate green value
   int32_t getSPO2(void); //Returns SPO2 value
-  int32_t getHR(void); //Returns Heart Rate value
   
   uint32_t irBuffer[100]; //infrared LED sensor data
   uint32_t redBuffer[100];  //red LED sensor data
+  
+  float beatsPerMinute;
+  int beatAvg;
+  
+  byte rates[4]; //Array of heart rates
+  byte rateSpot = 0;
+  long lastBeat = 0; //Time at which the last beat occurred
   
   void poll();
   

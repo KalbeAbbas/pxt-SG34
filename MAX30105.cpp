@@ -547,11 +547,6 @@ int32_t MAX30105::getSPO2(void)
 	return spo2;
 }
 
-// Return HR value
-int32_t MAX30105::getHR(void)
-{
-	return heartRate;
-}
 
 void MAX30105::poll(void)
 	{
@@ -878,33 +873,63 @@ namespace max30105{
     }
 	
 	//%
-	int32_t getHRSG34()
+	float getBPMSG34()
 	{
-		
-		//dumping the first 25 sets of samples in the memory and shift the last 75 sets of samples to the top
-		for (byte i = 25; i < 100; i++)
+		long irValue = sg34->getIR();
+
+		if (checkForBeat(irValue) == true)
 		{
-			sg34->redBuffer[i - 25] = sg34->redBuffer[i];
-			sg34->irBuffer[i - 25] = sg34->irBuffer[i];
-		}
+			//We sensed a beat!
+			long delta = system_timer_current_time() - sg34->lastBeat;
+			sg34->lastBeat = system_timer_current_time();
 
-		//take 25 sets of samples before calculating the heart rate.
-		for (byte i = 75; i < 100; i++)
+			sg34->beatsPerMinute = 60 / (delta / 1000.0);
+
+			if (sg34->beatsPerMinute < 255 && sg34->beatsPerMinute > 20)
+			{
+				sg34->rates[sg34->rateSpot++] = (byte)sg34->beatsPerMinute; //Store this reading in the array
+				sg34->rateSpot %= 4; //Wrap variable
+
+				//Take average of readings
+				sg34->beatAvg = 0;
+				for (byte x = 0 ; x < 4 ; x++)
+					sg34->beatAvg += sg34->rates[x];
+				sg34->beatAvg /= 4;
+			}
+		}
+		
+		return sg34->beatsPerMinute;
+	}
+	
+	//%
+	int getBPMAvgSG34()
+	{
+		long irValue = sg34->getIR();
+
+		if (checkForBeat(irValue) == true)
 		{
-			while (sg34->available() == false) //do we have new data?
-				sg34->check(); //Check the sensor for new data
+			//We sensed a beat!
+			long delta = system_timer_current_time() - sg34->lastBeat;
+			sg34->lastBeat = system_timer_current_time();
 
-			sg34->redBuffer[i] = sg34->getRed();
-			sg34->irBuffer[i] = sg34->getIR();
-			sg34->nextSample(); //We're finished with this sample so move to next sample
+			sg34->beatsPerMinute = 60 / (delta / 1000.0);
+
+			if (sg34->beatsPerMinute < 255 && sg34->beatsPerMinute > 20)
+			{
+				sg34->rates[sg34->rateSpot++] = (byte)sg34->beatsPerMinute; //Store this reading in the array
+				sg34->rateSpot %= 4; //Wrap variable
+
+				//Take average of readings
+				sg34->beatAvg = 0;
+				for (byte x = 0 ; x < 4 ; x++)
+					sg34->beatAvg += sg34->rates[x];
+				sg34->beatAvg /= 4;
+			}
 		}
 		
-		    //After gathering 25 new samples recalculate HR and SP02
-    maxim_heart_rate_and_oxygen_saturation(sg34->irBuffer, 100, sg34->redBuffer, &(sg34->spo2), &(sg34->validSPO2), &(sg34->heartRate), &(sg34->validHeartRate));
-		
-	return(sg34->getHR());
+		return sg34->beatAvg;
+	}
 
-    }
 	
 	//%
 	int8_t getSPO2ValidSG34()

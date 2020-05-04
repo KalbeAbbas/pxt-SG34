@@ -55,7 +55,7 @@
 * 
 */
 
-/*#include "heartRate.h"
+#include "heartRate.h"
 
 int16_t IR_AC_Max = 20;
 int16_t IR_AC_Min = -20;
@@ -165,4 +165,3 @@ int32_t mul16(int16_t x, int16_t y)
 {
   return((long)x * (long)y);
 }
-*/

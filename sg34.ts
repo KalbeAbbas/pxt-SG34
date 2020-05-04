@@ -39,9 +39,15 @@ namespace sg34{
 		return 1
 	}
 	
-	//%block="SG34 get heart rate"
-	//%shim=max30105::getHRSG34
-	export function getHR():number{
+	//%block="SG34 get BPM"
+	//%shim=max30105::getBPMSG34
+	export function getBPM():number{
+		return 1
+	}
+	
+	//%block="SG34 get BPM Avg"
+	//%shim=max30105::getBPMAvgSG34
+	export function getBPMAvg():number{
 		return 1
 	}
 	
@@ -50,12 +56,7 @@ namespace sg34{
 	export function getSPO2Valid():number{
 		return 1
 	}
-	
-	//%block="SG34 is heart rate valid"
-	//%shim=max30105::getHRValidSG34
-	export function getHRValid():number{
-		return 1
-	}
+
 	
 	setup()
 }
