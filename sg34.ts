@@ -51,11 +51,6 @@ namespace sg34{
 		return 1
 	}
 	
-	//%block="SG34 is SPO2 valid"
-	//%shim=max30105::getSPO2ValidSG34
-	export function getSPO2Valid():number{
-		return 1
-	}
 
 	
 	setup()
