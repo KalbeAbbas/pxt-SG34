@@ -547,6 +547,12 @@ int32_t MAX30105::getSPO2(void)
 	return spo2;
 }
 
+// Return HR value
+int32_t MAX30105::getHR(void)
+{
+	return heartRate;
+}
+
 void MAX30105::poll(void)
 	{
 		
@@ -896,7 +902,7 @@ namespace max30105{
 		    //After gathering 25 new samples recalculate HR and SP02
     maxim_heart_rate_and_oxygen_saturation(sg34->irBuffer, 100, sg34->redBuffer, &(sg34->spo2), &(sg34->validSPO2), &(sg34->heartRate), &(sg34->validHeartRate));
 		
-	return(sg34->getSPO2());
+	return(sg34->getHR());
 
     }
 
