@@ -33,6 +33,7 @@ class MAX30105 {
   uint32_t getIR(void); //Returns immediate IR value
   uint32_t getGreen(void); //Returns immediate green value
   int32_t getSPO2(void); //Returns SPO2 value
+  int32_t getHR(void); //Returns Heart Rate value
   
   uint32_t irBuffer[100]; //infrared LED sensor data
   uint32_t redBuffer[100];  //red LED sensor data
